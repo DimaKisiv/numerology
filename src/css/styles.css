@@ -1,66 +1,58 @@
-
 body {
-  background: black;
-  color: #fff;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   height: 100vh;
-  text-align: center;
+  background: linear-gradient(45deg, #1a1a2e, #16213e);
+  font-family: 'Courier New', monospace;
+  padding: 10px;
 }
 
-.timer {
+/* Always 3x3 Grid */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, auto);
+  gap: 10px;
+  width: min(90vw, 300px);
+}
+
+/* Grid Cell */
+.cell {
+  width: 100%;
+  aspect-ratio: 1;
   display: flex;
-  gap: 20px;
-  padding: 20px;
-  border: 4px solid red;
-  box-shadow: 0 0 15px red;
+  justify-content: center;
+  align-items: center;
+  border: 2px solid rgba(255, 255, 255, 0.5);
   border-radius: 10px;
-  background: rgba(0, 0, 0, 0.8);
-  animation: pulse 2s infinite alternate;
+  background: rgba(0, 0, 0, 0.5);
+  color: #fff;
+  font-size: clamp(14px, 4vw, 18px);
+  text-shadow: 0 0 5px #ff00ff, 0 0 10px #ff00ff;
+  box-shadow: 0 0 10px rgba(255, 0, 255, 0.5);
 }
 
-.field {
+/* Styled Input Box */
+.input-container {
+  margin: 20px 0;
   display: flex;
   flex-direction: column;
   align-items: center;
-  font-size: 2rem;
-  padding: 10px;
-  position: relative;
 }
 
-.value {
-  font-size: 4rem;
-  color: #ff0000;
-  text-shadow: 0 0 15px red, 0 0 30px darkred;
-  transition: transform 0.3s ease-in-out;
-}
-
-.label {
-  font-size: 1.2rem;
-  color: #fff;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  text-shadow: 0 0 5px white;
-}
-
-.field:hover .value {
-  transform: scale(1.2);
-}
-
-/* Spooky Input Field */
 #datetime-picker {
-  margin-bottom: 10px;
   background: black;
   border: 2px solid red;
-  padding: 10px;
+  padding: 12px;
   font-size: 1.2rem;
   color: #ff0000;
   text-shadow: 0 0 10px red;
   outline: none;
   text-align: center;
-  width: 220px;
+  width: min(90vw, 250px);
+  border-radius: 8px;
   transition: box-shadow 0.3s ease-in-out;
 }
 
@@ -68,18 +60,47 @@ body {
   box-shadow: 0 0 20px red;
 }
 
-/* Creepy Button */
+/* Ensure Timer Stays Centered */
+.timer {
+  display: flex;
+  justify-content: center;
+  flex-wrap: nowrap;
+  gap: 10px;
+  padding: 15px;
+  border: 3px solid red;
+  box-shadow: 0 0 15px red;
+  border-radius: 10px;
+  background: rgba(0, 0, 0, 0.8);
+  animation: pulse 2s infinite alternate;
+  max-width: 320px;
+}
+
+/* Ensure Timer Fields Scale */
+.field {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: clamp(1.2rem, 4vw, 2rem);
+  padding: 5px;
+}
+
+.value {
+  font-size: clamp(2rem, 6vw, 4rem);
+  color: #ff0000;
+  text-shadow: 0 0 15px red, 0 0 30px darkred;
+}
+
+/* Make Button Look Good */
 button[data-start] {
-  margin-top: 10px;
   background: black;
   color: darkred;
   border: 3px solid red;
-  padding: 10px 20px;
-  font-size: 1.5rem;
+  padding: 12px 20px;
+  font-size: 1.2rem;
   cursor: pointer;
-  transition: transform 0.3s, box-shadow 0.3s;
   text-shadow: 0 0 10px red;
   box-shadow: 0 0 10px red;
+  transition: transform 0.3s, box-shadow 0.3s;
 }
 
 button[data-start]:hover {
@@ -98,66 +119,28 @@ button[data-start]:disabled {
   box-shadow: none;
 }
 
-@keyframes pulse {
-  0% {
-    box-shadow: 0 0 15px red;
+/* Mobile Optimization */
+@media (max-width: 480px) {
+  .grid {
+    width: 90vw;
   }
-  100% {
-    box-shadow: 0 0 25px red, 0 0 50px darkred;
+
+  .cell {
+    font-size: 12px;
   }
-}
 
-.iziToast {
-  font-size: 1.2rem;
-  border-radius: 10px;
-  text-shadow: 0 0 5px red;
-  box-shadow: 0 0 15px red, 0 0 30px darkred;
-}
-
-/* Error Toast Styling */
-.iziToast-error {
-  background: black !important;
-  color: #ff0000 !important;
-  border: 2px solid red;
-}
-
-/* Error Toast Title */
-.iziToast-error .iziToast-title {
-  color: #ff4444 !important;
-  text-shadow: 0 0 5px #ff4444, 0 0 10px #ff2222;
-}
-
-/* Error Toast Message */
-.iziToast-error .iziToast-message {
-  color: white !important;
-  text-shadow: 0 0 5px red;
-}
-
-/* Close Button */
-.iziToast-close {
-  color: white !important;
-  opacity: 1 !important;
-  transition: transform 0.2s ease-in-out;
-}
-
-.iziToast-close:hover {
-  transform: scale(1.3);
-  color: red !important;
-}
-
-/* Toast Animation */
-@keyframes flicker {
-  0% {
-    opacity: 1;
+  .timer {
+    flex-direction: column;
+    align-items: center;
   }
-  50% {
-    opacity: 0.8;
-  }
-  100% {
-    opacity: 1;
-  }
-}
 
-.iziToast-error {
-  animation: flicker 0.8s infinite alternate;
+  #datetime-picker {
+    font-size: 1rem;
+    padding: 10px;
+  }
+
+  button[data-start] {
+    font-size: 1rem;
+    padding: 10px;
+  }
 }
