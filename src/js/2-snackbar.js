@@ -3,8 +3,6 @@ import flatpickr from 'flatpickr';
 import 'flatpickr/dist/flatpickr.min.css';
 
 let picker = flatpickr('#datetime-picker', {
-  enableTime: true,
-  time_24hr: true,
   defaultDate: new Date(1991, 7, 19),
   minuteIncrement: 1,
   onClose(selectedDates) {
